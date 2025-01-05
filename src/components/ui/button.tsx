@@ -1,14 +1,18 @@
 import { ButtonHTMLAttributes } from 'react'
+import { cn } from "../../lib/utils"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
 }
 
-const Button = ({ children, ...props }: ButtonProps) => {
+const Button = ({ children, className, ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className="inline-flex items-center px-4 py-2 bg-violet-600 text-white rounded-md hover:bg-violet-700"
+      className={cn(
+        "inline-flex items-center px-4 py-2 text-white rounded-md",
+        className
+      )}
     >
       {children}
     </button>

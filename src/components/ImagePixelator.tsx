@@ -9,6 +9,7 @@ import { Download } from 'lucide-react'
 export default function ImagePixelator() {
   const [image, setImage] = useState<string | null>(null)
   const [pixelSize, setPixelSize] = useState(10)
+  const [blackAndWhite, setBlackAndWhite] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,15 +39,36 @@ export default function ImagePixelator() {
       for (let y = 0; y < canvas.height; y += pixelSize) {
         for (let x = 0; x < canvas.width; x += pixelSize) {
           const i = (y * canvas.width + x) * 4
-          const avgColor = (data[i] + data[i + 1] + data[i + 2]) / 3
-          const bwColor = avgColor > 128 ? 255 : 0
+          
+          let r = 0, g = 0, b = 0
+          let count = 0
+          
+          for (let py = 0; py < pixelSize && y + py < canvas.height; py++) {
+            for (let px = 0; px < pixelSize && x + px < canvas.width; px++) {
+              const idx = ((y + py) * canvas.width + (x + px)) * 4
+              r += data[idx]
+              g += data[idx + 1]
+              b += data[idx + 2]
+              count++
+            }
+          }
+          
+          r = Math.round(r / count)
+          g = Math.round(g / count)
+          b = Math.round(b / count)
+
+          if (blackAndWhite) {
+            const avg = (r + g + b) / 3
+            const bwColor = avg > 128 ? 255 : 0
+            r = g = b = bwColor
+          }
 
           for (let py = 0; py < pixelSize && y + py < canvas.height; py++) {
             for (let px = 0; px < pixelSize && x + px < canvas.width; px++) {
               const pixelIndex = ((y + py) * canvas.width + (x + px)) * 4
-              data[pixelIndex] = bwColor
-              data[pixelIndex + 1] = bwColor
-              data[pixelIndex + 2] = bwColor
+              data[pixelIndex] = r
+              data[pixelIndex + 1] = g
+              data[pixelIndex + 2] = b
             }
           }
         }
@@ -71,11 +93,11 @@ export default function ImagePixelator() {
     if (image) {
       pixelateImage()
     }
-  }, [image, pixelSize])
+  }, [image, pixelSize, blackAndWhite])
 
   return (
     <div className="container mx-auto p-4 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-4">Black&White Pixelator</h1>
+      <h1 className="text-2xl font-bold mb-4">Image Pixelator</h1>
       <div className="mb-4">
         <Label htmlFor="image-upload" className="block mb-2">Upload an image:</Label>
         <input
@@ -105,13 +127,23 @@ export default function ImagePixelator() {
               className="w-full"
             />
           </div>
-          <div className="mt-4">
-            <canvas ref={canvasRef} className="max-w-full h-auto border border-gray-300" />
+          <div className="flex gap-4 mb-4">
+            <Button
+              onClick={() => setBlackAndWhite(!blackAndWhite)}
+              className={`${
+                blackAndWhite 
+                  ? 'bg-gray-800 hover:bg-gray-900' 
+                  : 'bg-violet-600 hover:bg-violet-700'
+              }`}
+            >
+              {blackAndWhite ? 'Black&White' : 'Color'}
+            </Button>
+            <Button onClick={handleDownload} className="bg-violet-600 hover:bg-violet-700">
+              <Download className="mr-2 h-4 w-4" /> Download
+            </Button>
           </div>
           <div className="mt-4">
-            <Button onClick={handleDownload}>
-              <Download className="mr-2 h-4 w-4" /> Download Pixelated Image
-            </Button>
+            <canvas ref={canvasRef} className="max-w-full h-auto border border-gray-300" />
           </div>
         </>
       )}
