@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Pixel';
+  src: url('/fonts/VT323-Regular.ttf') format('truetype');
+}
+
+.font-pixel {
+  font-family: 'Pixel', monospace;
+  image-rendering: pixelated;
+}
