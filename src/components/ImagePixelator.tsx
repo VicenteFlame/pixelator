@@ -106,7 +106,7 @@ export default function ImagePixelator() {
         </h1>
       </div>
       <div className="container mx-auto p-4 max-w-2xl">
-        <h1 className="text-2xl font-bold mb-4 text-center">Free Image Pixelator</h1>
+        <h1 className="text-4xl font-bold mb-4 text-center">Free Image Pixelator</h1>
         <div className="mb-4">
           <Label htmlFor="image-upload" className="block mb-2">Upload an image:</Label>
           <input
@@ -145,7 +145,7 @@ export default function ImagePixelator() {
                     : 'bg-violet-600 hover:bg-violet-700'
                 }`}
               >
-                {blackAndWhite ? 'Black&White' : 'Color'}
+                {blackAndWhite ? 'Black&White' : 'Colored'}
               </Button>
               <Button onClick={handleDownload} className="bg-violet-600 hover:bg-violet-700">
                 <Download className="mr-2 h-4 w-4" /> Download

@@ -1,19 +1,23 @@
 export const faqItems = [
   {
-    question: "¿Qué es la pixelación de imágenes?",
-    answer: "La pixelación es una técnica que reduce la resolución de una imagen agrupando píxeles en bloques más grandes, creando un efecto de mosaico o estilo retro."
+    question: "What is Image Pixelator?",
+    answer: "Image Pixelator is a web tool that transforms your images into pixelated art, with options for both color and B&W effects."
   },
   {
-    question: "¿Puedo descargar la imagen pixelada?",
-    answer: "Sí, después de pixelar tu imagen puedes descargarla usando el botón 'Download'."
+    question: "How to Use Image Pixelator?",
+    answer: "Simply upload an image, use the slider to adjust pixel size, choose between color or B&W mode, and download your creation."
   },
   {
-    question: "¿Qué formatos de imagen puedo usar?",
-    answer: "Puedes subir imágenes en formatos comunes como JPG, PNG, GIF y WebP."
+    question: "Is Image Pixelator Free?",
+    answer: "Yes, Image Pixelator it's completely free to use with no restrictions or hidden costs."
   },
   {
-    question: "¿Hay un límite de tamaño para las imágenes?",
-    answer: "Por razones de rendimiento, recomendamos usar imágenes de hasta 4000x4000 píxeles."
+    question: "What image formats does Image Pixelator support",
+    answer: "Image Pixelator supports all common formats including JPG, PNG, GIF, and WEBP. Downloads are in PNG format."
+  },
+  {
+    question: "How Does Image Pixelator Protect Privacy?",
+    answer: "Image Pixelator does not store your uploaded images. All editing takes place directly within your browser, ensuring your privacy is protected."
   }
 ];
 
